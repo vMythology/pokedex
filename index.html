@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Pokedex</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="showlist">
+            <div class="pokelist">
+                <div class="screen">
+                    <div @click="ShowPoke(item.url)" v-for="item in pokelist" class="cadapoke">{{item.name}}</div>
+                </div>
+            </div>
+            <i @click="SetPokes(previouspokelist)" class="fas fa-arrow-circle-left"></i>
+            <i @click="SetPokes(nextpokelist)" class="fas fa-arrow-circle-right"></i>
+        </div>
+        <div v-if=showpoke>
+            <div class="boxshowpoke">
+                <div class="screen">
+                    <img :src="pokeinfo.sprites.front_default">
+                    <span class="stats">{{pokeinfo.name}}</span>
+                    <div class="type">Tipo:<span>{{pokeinfo.types[0].type.name}}</span></div>
+                    <div class="heightweight">Altura:<span>{{pokeinfo.height}}</span> | Peso:<span>{{pokeinfo.weight}}</span></div>
+                    <br>
+                    <span class="stats">Status base</span>
+                    <div class="type">Vida:<span>{{pokeinfo.stats[0].base_stat}}</span></div>
+                    <div class="type">Velocidade:<span>{{pokeinfo.stats[5].base_stat}}</span></div>
+                    <div class="type">Ataque:<span>{{pokeinfo.stats[1].base_stat}}</span></div>
+                    <div class="type">Defesa:<span>{{pokeinfo.stats[2].base_stat}}</span></div>
+                    <div class="type">Ataque especial:<span>{{pokeinfo.stats[3].base_stat}}</span></div>
+                    <div class="type">Defesa especial:<span>{{pokeinfo.stats[4].base_stat}}</span></div>
+                    <i @click="turnback()" class="fas fa-arrow-alt-circle-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                pokelist: [],
+                nextpokelist: null,
+                previouspokelist: null,
+                showlist: true,
+                showpoke: false,
+                pokeinfo: [],
+            },
+            methods: {
+                async SetPokes(url) {
+                    try {
+                        let array = await axios.get(url)
+                        this.pokelist = array.data.results;
+                        this.nextpokelist = array.data.next;
+                        this.previouspokelist = array.data.previous;
+                    } catch {
+                        let array = await axios.get('https://pokeapi.co/api/v2/pokemon')
+                        this.pokelist = array.data.results;
+                        this.nextpokelist = array.data.next;
+                        this.previouspokelist = array.data.previous;
+                    }
+                },
+                async ShowPoke(url) {
+                    let reg = new RegExp('https:\/\/pokeapi.co\/api\/v2\/pokemon\/(.*)\/');
+                    let resultArray = reg.exec(url);
+                    try {
+                        let array = await axios.get('https://pokeapi.co/api/v2/pokemon/'+resultArray[1])
+                        this.pokeinfo = array.data
+                        this.showlist = false
+                        this.showpoke = true
+                    } catch {
+                        console.log('ERRO')
+                    }
+                },
+                turnback() {
+                    this.showpoke = false
+                    this.showlist = true
+                },
+            },
+            created: function() {
+                this.SetPokes('https://pokeapi.co/api/v2/pokemon')
+            },
+        })
+    </script>
+</body>
+</html>

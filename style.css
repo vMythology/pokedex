@@ -1,0 +1,135 @@
+body {
+    font-family: 'Helvetica', sans-serif;
+}
+
+.pokelist {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 82vh;
+    width: 50vw;
+    border-radius: 1vw;
+    background-color: #b50e0e;
+    box-shadow: inset 0px 0px .5vw .1vw rgba(0,0,0,0.75);
+}
+
+.screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80vh;
+    width: 49vw;
+    border-radius: 1vw;
+    background-color: #FAFAFA;
+}
+
+.cadapoke {
+    display: block;
+    width: 50%;
+    height: 8vh;
+    line-height: 8vh;
+    float: left;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1.4vw;
+    font-weight: bold;
+    transition: .5s;
+}
+
+.cadapoke:hover {
+    box-shadow: inset 0px 0px .5vw .1vw #b50e0e;
+    border-radius: 1vw;
+    cursor: pointer;
+    transition: .5s;
+}
+
+i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4vw;
+    color: #b50e0e;
+    transition: .5s;
+}
+
+i:hover {
+    color: #d90202;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.fa-arrow-circle-left {
+    left: 18%;
+}
+
+.fa-arrow-circle-right {
+    left: 82%;
+}
+
+.boxshowpoke {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80vh;
+    width: 25vw;
+    border-radius: 1vw;
+    background-color: #b50e0e;
+}
+
+.boxshowpoke .screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 78vh;
+    width: 24vw;
+    border-radius: 1vw;
+    background-color: #FAFAFA;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+}
+
+.boxshowpoke .screen div {
+    display: block;
+    width: 100%;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1vw;
+}
+
+.boxshowpoke .screen div span {
+    color: #b50e0e;
+}
+
+.stats {
+    display: block;
+    width: 100%;
+    height: 4vh;
+    line-height: 4vh;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5vw;
+    text-transform: uppercase;
+}
+
+.boxshowpoke .screen i {
+    top: 90%;
+}
+
+.boxshowpoke .screen i:hover {
+    color: #d90202;
+    cursor: pointer;
+    transition: .5s;
+}
